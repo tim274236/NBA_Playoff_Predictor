@@ -22,6 +22,9 @@ The Claude skill reads this file to stay current on pending work.
 - [x] **Remove decorative glass orb bubbles from matchup cards**
   Remove the `::after` pseudo-element on `.matchup-card` (the 92px circular gloss orb in the top-right corner of each card) and the matching `::before` shimmer overlay. Keep the glass background and border styling — only remove the floating circle decorations.
 
+- [x] **Play-in result: replace 0/1 wins dropdown with Win/Loss selector**
+  In play-in matchup cards, replace the wins `<select>` (options: 0, 1) with a simpler Win / Loss toggle or dropdown so users pick "Win" or "Loss" rather than a numeric score. Should still resolve the series winner the same way (1 win = advance).
+
 - [ ] **Upgrade stats modal: centered layout, horizontal bar charts, team logos**
   Redesign the `.stats-modal` team comparison panel with three sub-tasks:
   - **Centered metric layout:** Each stat row should show the metric label centred between the two values, with team name displayed directly above its value column in the header (currently left/right aligned — align both to their respective columns).

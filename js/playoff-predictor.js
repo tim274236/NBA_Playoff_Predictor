@@ -267,7 +267,8 @@ function getTeamBadge(teamName) {
 function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWins }) {
     const teamId = getTeamId(teamName);
     const isTbd = !teamId;
-    const winOptions = maxWins === 1 ? [0, 1] : [0, 1, 2, 3, 4];
+    const isPlayIn = maxWins === 1;
+    const winOptions = isPlayIn ? [0, 1] : [0, 1, 2, 3, 4];
 
     return (
         React.createElement("div", {
@@ -289,15 +290,20 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWi
                 )
             ),
             React.createElement("label", { className: "wins-control" },
-                React.createElement("span", { className: "sr-only" }, `Wins for ${teamName}`),
+                React.createElement("span", { className: "sr-only" }, `Result for ${teamName}`),
                 React.createElement("select", {
                     value: wins,
                     onChange: (event) => onWinsChange(Number(event.target.value)),
                     disabled: isTbd
                 },
-                    winOptions.map((value) => (
-                        React.createElement("option", { key: value, value }, value)
-                    ))
+                    isPlayIn
+                        ? [
+                            React.createElement("option", { key: 0, value: 0 }, "—"),
+                            React.createElement("option", { key: 1, value: 1 }, "Win")
+                          ]
+                        : winOptions.map((value) => (
+                            React.createElement("option", { key: value, value }, value)
+                          ))
                 )
             )
         )

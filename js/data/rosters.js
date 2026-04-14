@@ -1,0 +1,21 @@
+export const ROSTERS = {
+    okc: ["Shai Gilgeous-Alexander", "Jalen Williams", "Chet Holmgren", "Isaiah Hartenstein", "Lu Dort"],
+    lal: ["Luka Doncic", "LeBron James", "Austin Reaves", "Rui Hachimura", "Jarred Vanderbilt"],
+    hou: ["Alperen Sengun", "Jalen Green", "Fred VanVleet", "Amen Thompson", "Jabari Smith Jr."],
+    den: ["Nikola Jokic", "Jamal Murray", "Michael Porter Jr.", "Aaron Gordon", "Christian Braun"],
+    min: ["Anthony Edwards", "Julius Randle", "Rudy Gobert", "Jaden McDaniels", "Naz Reid"],
+    sas: ["Victor Wembanyama", "De'Aaron Fox", "Devin Vassell", "Stephon Castle", "Keldon Johnson"],
+    gsw: ["Stephen Curry", "Jimmy Butler", "Draymond Green", "Brandin Podziemski", "Jonathan Kuminga"],
+    lac: ["Kawhi Leonard", "James Harden", "Ivica Zubac", "Norman Powell", "Terance Mann"],
+    por: ["Scoot Henderson", "Anfernee Simons", "Shaedon Sharpe", "Jerami Grant", "Deandre Ayton"],
+    bos: ["Jayson Tatum", "Jaylen Brown", "Kristaps Porzingis", "Derrick White", "Jrue Holiday"],
+    cle: ["Donovan Mitchell", "Darius Garland", "Evan Mobley", "Jarrett Allen", "Max Strus"],
+    tor: ["Scottie Barnes", "RJ Barrett", "Immanuel Quickley", "Jakob Poeltl", "Gradey Dick"],
+    nyk: ["Jalen Brunson", "Karl-Anthony Towns", "OG Anunoby", "Mikal Bridges", "Josh Hart"],
+    atl: ["Trae Young", "Jalen Johnson", "Dyson Daniels", "Onyeka Okongwu", "Zaccharie Risacher"],
+    det: ["Cade Cunningham", "Jaden Ivey", "Ausar Thompson", "Tobias Harris", "Jalen Duren"],
+    cha: ["LaMelo Ball", "Brandon Miller", "Miles Bridges", "Mark Williams", "Tre Mann"],
+    mia: ["Bam Adebayo", "Tyler Herro", "Kel'el Ware", "Andrew Wiggins", "Terry Rozier"],
+    phi: ["Tyrese Maxey", "Joel Embiid", "Paul George", "Jared McCain", "Kelly Oubre Jr."],
+    orl: ["Paolo Banchero", "Franz Wagner", "Jalen Suggs", "Wendell Carter Jr.", "Jonathan Isaac"]
+};

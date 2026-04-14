@@ -1,0 +1,21 @@
+export const TEAM_STATS = {
+    okc: { offRtg: 118.2, defRtg: 108.1, efgPct: 57.3, orebPct: 27.4 },
+    lal: { offRtg: 115.6, defRtg: 112.3, efgPct: 55.1, orebPct: 25.8 },
+    hou: { offRtg: 114.9, defRtg: 111.7, efgPct: 54.2, orebPct: 28.1 },
+    den: { offRtg: 117.1, defRtg: 110.9, efgPct: 56.8, orebPct: 24.9 },
+    min: { offRtg: 113.4, defRtg: 109.2, efgPct: 53.7, orebPct: 26.3 },
+    sas: { offRtg: 112.8, defRtg: 113.5, efgPct: 52.9, orebPct: 25.1 },
+    gsw: { offRtg: 114.1, defRtg: 111.8, efgPct: 55.6, orebPct: 24.7 },
+    lac: { offRtg: 113.2, defRtg: 112.4, efgPct: 53.4, orebPct: 25.9 },
+    por: { offRtg: 111.5, defRtg: 114.2, efgPct: 52.1, orebPct: 26.8 },
+    bos: { offRtg: 119.4, defRtg: 107.3, efgPct: 58.9, orebPct: 23.6 },
+    cle: { offRtg: 116.8, defRtg: 109.4, efgPct: 56.2, orebPct: 26.1 },
+    tor: { offRtg: 112.3, defRtg: 113.1, efgPct: 53.0, orebPct: 27.2 },
+    nyk: { offRtg: 115.2, defRtg: 110.6, efgPct: 55.4, orebPct: 25.3 },
+    atl: { offRtg: 113.9, defRtg: 112.8, efgPct: 54.1, orebPct: 26.5 },
+    det: { offRtg: 111.8, defRtg: 114.5, efgPct: 52.6, orebPct: 27.8 },
+    cha: { offRtg: 110.4, defRtg: 115.2, efgPct: 51.3, orebPct: 28.4 },
+    mia: { offRtg: 112.1, defRtg: 113.7, efgPct: 52.8, orebPct: 27.1 },
+    phi: { offRtg: 113.6, defRtg: 112.1, efgPct: 53.8, orebPct: 26.6 },
+    orl: { offRtg: 111.2, defRtg: 113.9, efgPct: 52.0, orebPct: 28.9 }
+};

@@ -54,8 +54,8 @@ const WEST_R1 = BRACKET.west.r1;
 const EAST_R1 = BRACKET.east.r1;
 
 const SERIES_META = [
-    { id: "playin_w1", round: "Play-In", column: "west-playin", title: "West Play-In A", home: WEST_PLAYIN[0], away: WEST_PLAYIN[1] },
-    { id: "playin_w2", round: "Play-In", column: "west-playin", title: "West Play-In B", home: WEST_PLAYIN[2], away: WEST_PLAYIN[3] },
+    { id: "playin_w1", round: "Play-In", column: "west-playin", title: "West 7 vs 8", home: WEST_PLAYIN[0], away: WEST_PLAYIN[1] },
+    { id: "playin_w2", round: "Play-In", column: "west-playin", title: "West 9 vs 10", home: WEST_PLAYIN[2], away: WEST_PLAYIN[3] },
     { id: "r1_w1", round: "Round 1", column: "west-r1", title: "West 1", home: WEST_R1[0].home, awayFrom: { seriesId: "playin_w1" } },
     { id: "r1_w2", round: "Round 1", column: "west-r1", title: "West 2", home: WEST_R1[1].home, away: WEST_R1[1].away },
     { id: "r1_w3", round: "Round 1", column: "west-r1", title: "West 3", home: WEST_R1[2].home, away: WEST_R1[2].away },
@@ -63,8 +63,8 @@ const SERIES_META = [
     { id: "r2_w1", round: "Semifinals", column: "west-r2", title: "West Semi A", homeFrom: { seriesId: "r1_w1" }, awayFrom: { seriesId: "r1_w2" } },
     { id: "r2_w2", round: "Semifinals", column: "west-r2", title: "West Semi B", homeFrom: { seriesId: "r1_w3" }, awayFrom: { seriesId: "r1_w4" } },
     { id: "r3_w", round: "Conf Finals", column: "center-west", title: "West Finals", homeFrom: { seriesId: "r2_w1" }, awayFrom: { seriesId: "r2_w2" } },
-    { id: "playin_e1", round: "Play-In", column: "east-playin", title: "East Play-In A", home: EAST_PLAYIN[0], away: EAST_PLAYIN[1] },
-    { id: "playin_e2", round: "Play-In", column: "east-playin", title: "East Play-In B", home: EAST_PLAYIN[2], away: EAST_PLAYIN[3] },
+    { id: "playin_e1", round: "Play-In", column: "east-playin", title: "East 7 vs 8", home: EAST_PLAYIN[0], away: EAST_PLAYIN[1] },
+    { id: "playin_e2", round: "Play-In", column: "east-playin", title: "East 9 vs 10", home: EAST_PLAYIN[2], away: EAST_PLAYIN[3] },
     { id: "r1_e1", round: "Round 1", column: "east-r1", title: "East 1", home: EAST_R1[0].home, awayFrom: { seriesId: "playin_e1" } },
     { id: "r1_e2", round: "Round 1", column: "east-r1", title: "East 2", home: EAST_R1[1].home, away: EAST_R1[1].away },
     { id: "r1_e3", round: "Round 1", column: "east-r1", title: "East 3", home: EAST_R1[2].home, away: EAST_R1[2].away },
@@ -122,9 +122,13 @@ function buildSeriesMap(previousSeries = {}) {
         const away = resolveSlotValue(definition, "away", computed);
         const previous = previousSeries[definition.id];
         const sameMatchup = previous && previous.home === home && previous.away === away;
+        const isPlayIn = definition.id.startsWith("playin_");
+        const winsNeeded = isPlayIn ? 1 : 4;
         const homeWins = sameMatchup ? previous.homeWins : 0;
         const awayWins = sameMatchup ? previous.awayWins : 0;
-        const winner = homeWins === 4 && awayWins < 4 ? "home" : awayWins === 4 && homeWins < 4 ? "away" : null;
+        const winner = homeWins >= winsNeeded && awayWins < winsNeeded ? "home"
+            : awayWins >= winsNeeded && homeWins < winsNeeded ? "away"
+            : null;
 
         computed[definition.id] = {
             id: definition.id,
@@ -135,7 +139,8 @@ function buildSeriesMap(previousSeries = {}) {
             away,
             homeWins,
             awayWins,
-            winner
+            winner,
+            isPlayIn
         };
     });
 
@@ -257,10 +262,10 @@ function getTeamBadge(teamName) {
     return id.toUpperCase();
 }
 
-function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser }) {
+function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWins }) {
     const teamId = getTeamId(teamName);
-    const accent = teamId ? TEAM_ACCENTS[teamId] : "#94a3b8";
     const isTbd = !teamId;
+    const winOptions = maxWins === 1 ? [0, 1] : [0, 1, 2, 3, 4];
 
     return (
         React.createElement("div", {
@@ -272,10 +277,6 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser }) {
             ].filter(Boolean).join(" ")
         },
             React.createElement("div", { className: "team-main" },
-                React.createElement("div", {
-                    className: "team-badge",
-                    style: { "--team-accent": accent }
-                }, getTeamBadge(teamName)),
                 React.createElement("div", null,
                     React.createElement("div", { className: "team-name" }, teamName),
                     React.createElement("div", { className: "team-meta" }, label)
@@ -288,7 +289,7 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser }) {
                     onChange: (event) => onWinsChange(Number(event.target.value)),
                     disabled: isTbd
                 },
-                    [0, 1, 2, 3, 4].map((value) => (
+                    winOptions.map((value) => (
                         React.createElement("option", { key: value, value }, value)
                     ))
                 )
@@ -301,6 +302,18 @@ function MatchupCard({ series, onWinsChange, onOpenModal }) {
     const homeWinner = series.winner === "home";
     const awayWinner = series.winner === "away";
     const isFinals = series.id === "finals";
+    const isPlayIn = series.isPlayIn;
+    const maxWins = isPlayIn ? 1 : 4;
+
+    const playInBadge = isPlayIn
+        ? (series.id.endsWith("1") ? "Winner → 7th Seed" : "Winner → 8th Seed")
+        : null;
+
+    const statusText = series.winner
+        ? `${getWinnerLabel(series)} advances`
+        : isPlayIn
+            ? "Single game — pick a winner"
+            : "Waiting for a 4-win pick";
 
     return (
         React.createElement("article", {
@@ -320,26 +333,27 @@ function MatchupCard({ series, onWinsChange, onOpenModal }) {
             ),
             React.createElement("div", { className: "matchup-card__body" },
                 React.createElement(TeamRow, {
-                    label: "Home team",
+                    label: "Home",
                     teamName: series.home,
                     wins: series.homeWins,
                     onWinsChange: (wins) => onWinsChange(series.id, "home", wins),
                     isWinner: homeWinner,
-                    isLoser: awayWinner
+                    isLoser: awayWinner,
+                    maxWins
                 }),
                 React.createElement(TeamRow, {
-                    label: "Away team",
+                    label: "Away",
                     teamName: series.away,
                     wins: series.awayWins,
                     onWinsChange: (wins) => onWinsChange(series.id, "away", wins),
                     isWinner: awayWinner,
-                    isLoser: homeWinner
+                    isLoser: homeWinner,
+                    maxWins
                 })
             ),
             React.createElement("div", { className: "matchup-card__footer" },
-                React.createElement("span", { className: "series-status" },
-                    series.winner ? `${getWinnerLabel(series)} advances` : "Waiting for a 4-win pick"
-                )
+                playInBadge && React.createElement("span", { className: "playin-badge" }, playInBadge),
+                React.createElement("span", { className: "series-status" }, statusText)
             )
         )
     );

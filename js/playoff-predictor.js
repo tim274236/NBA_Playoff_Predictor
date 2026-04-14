@@ -79,9 +79,9 @@ const COLUMN_ORDER = [
     { key: "west-playin", label: "West Play-In" },
     { key: "west-r1", label: "West Round 1" },
     { key: "west-r2", label: "West Semis" },
-    { key: "center-west", label: "Conference Finals" },
-    { key: "center-finals", label: "NBA Finals" },
-    { key: "center-east", label: "Conference Finals" },
+    { key: "center-west", label: "🥈 West Finals" },
+    { key: "center-finals", label: "🏆 NBA Finals" },
+    { key: "center-east", label: "🥈 East Finals" },
     { key: "east-r2", label: "East Semis" },
     { key: "east-r1", label: "East Round 1" },
     { key: "east-playin", label: "East Play-In" }
@@ -300,10 +300,11 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser }) {
 function MatchupCard({ series, onWinsChange, onOpenModal }) {
     const homeWinner = series.winner === "home";
     const awayWinner = series.winner === "away";
+    const isFinals = series.id === "finals";
 
     return (
         React.createElement("article", {
-            className: ["matchup-card", series.winner ? "has-winner" : ""].join(" ")
+            className: ["matchup-card", series.winner ? "has-winner" : "", isFinals ? "matchup-card--finals" : ""].filter(Boolean).join(" ")
         },
             React.createElement("div", { className: "matchup-card__header" },
                 React.createElement("div", null,
@@ -499,7 +500,7 @@ function App() {
                 ),
                 React.createElement("section", { className: "bracket-shell" },
                     groupedSeries.map((column) => (
-                        React.createElement("div", { className: "bracket-column", key: column.key },
+                        React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
                             React.createElement("div", { className: "column-label" }, column.label),
                             column.items.map((series) => (
                                 React.createElement(MatchupCard, {

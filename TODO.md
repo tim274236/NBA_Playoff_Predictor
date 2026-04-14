@@ -19,6 +19,15 @@ The Claude skill reads this file to stay current on pending work.
 - [ ] **West Play-In 9 vs 10: set 9th seed to Phoenix Suns**
   In `js/data/bracket.js`, update the `west.playIn` array: index 2 (currently `"TBD"`) → `"Phoenix Suns"`. Add `"Phoenix Suns"` / `"phx"` to `TEAM_LOOKUP`, `TEAM_ACCENTS`, `ROSTERS`, and `TEAM_STATS` in `playoff-predictor.js` if not already present.
 
+- [ ] **Remove decorative glass orb bubbles from matchup cards**
+  Remove the `::after` pseudo-element on `.matchup-card` (the 92px circular gloss orb in the top-right corner of each card) and the matching `::before` shimmer overlay. Keep the glass background and border styling — only remove the floating circle decorations.
+
+- [ ] **Upgrade stats modal: centered layout, horizontal bar charts, team logos**
+  Redesign the `.stats-modal` team comparison panel with three sub-tasks:
+  - **Centered metric layout:** Each stat row should show the metric label centred between the two values, with team name displayed directly above its value column in the header (currently left/right aligned — align both to their respective columns).
+  - **Horizontal bar charts:** Replace plain stat numbers with a split bar chart for each metric. Each side's bar length is proportional to its value relative to the opposing team. Bar colour uses the team's `TEAM_ACCENTS` colour (accessible via `getTeamId()` + `TEAM_ACCENTS`). Both bars grow from the centre outward toward their respective team side.
+  - **Team logos in modal header:** Add a 48×48px team logo image (or accent-coloured placeholder if no image) for each team in the `.stats-modal__header`, flanking the title on either side.
+
 ---
 
 ## Completed

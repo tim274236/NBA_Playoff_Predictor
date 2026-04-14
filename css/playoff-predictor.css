@@ -220,7 +220,22 @@ select {
     justify-content: space-between;
     zoom: 0.70;
     flex-shrink: 0;
-    width: 190px;
+    width: max-content;
+}
+
+/* Let team names drive card width inside play-in columns */
+.bracket-playin .team-main {
+    overflow: visible;
+    flex: none;
+}
+
+.bracket-playin .team-name {
+    overflow: visible;
+    text-overflow: unset;
+}
+
+.bracket-playin .matchup-card {
+    width: max-content;
 }
 
 .bracket-shell {
@@ -451,8 +466,8 @@ select {
 
 .playin-winner-pick {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 6px;
     margin-top: 6px;
     padding: 10px 12px;
     border-radius: 16px;
@@ -465,11 +480,10 @@ select {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: rgba(22, 101, 52, 0.84);
-    white-space: nowrap;
 }
 
 .playin-winner-pick select {
-    flex: 1;
+    width: 100%;
     border-radius: 14px;
     border: 1px solid rgba(143, 179, 164, 0.55);
     background: rgba(255, 255, 255, 0.72);

@@ -206,21 +206,27 @@ select {
 }
 
 .bracket-shell {
-    margin-top: 28px;
     display: grid;
-    grid-template-columns: repeat(9, 230px);
-    gap: 50px;
-    align-items: center;
+    grid-template-columns: repeat(9, 190px);
+    gap: 40px;
+    align-items: start;
     overflow-x: auto;
     padding-bottom: 14px;
-    zoom: 0.57;
-    transform-origin: top left;
+    zoom: 0.70;
+    width: max-content;
+    margin: 28px auto 0;
 }
 
 .bracket-column {
     display: grid;
     gap: 14px;
     min-width: 0;
+}
+
+/* Spread play-in cards to align with their Round 1 partners */
+.bracket-column[data-col="west-playin"],
+.bracket-column[data-col="east-playin"] {
+    align-content: space-between;
 }
 
 /* Explicit column placement — row 1 */
@@ -556,7 +562,7 @@ select {
 
     /* Reset explicit grid placement so columns reflow into readable stack */
     .bracket-shell {
-        grid-template-columns: repeat(3, 230px);
+        grid-template-columns: repeat(3, 190px);
         align-items: start;
     }
 

@@ -513,8 +513,21 @@ function App() {
                     )
                 ),
                 React.createElement("div", { className: "bracket-wrapper" },
+                    groupedSeries.filter(c => c.key === "west-playin").map((column) => (
+                        React.createElement("div", { className: "bracket-playin", key: column.key, "data-side": "west" },
+                            React.createElement("div", { className: "column-label" }, column.label),
+                            column.items.map((series) => (
+                                React.createElement(MatchupCard, {
+                                    key: series.id,
+                                    series,
+                                    onWinsChange: setWins,
+                                    onOpenModal: setModalSeriesId
+                                })
+                            ))
+                        )
+                    )),
                     React.createElement("section", { className: "bracket-shell" },
-                        groupedSeries.map((column) => (
+                        groupedSeries.filter(c => c.key !== "west-playin" && c.key !== "east-playin").map((column) => (
                             React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
                                 React.createElement("div", { className: "column-label" }, column.label),
                                 column.items.map((series) => (
@@ -527,7 +540,20 @@ function App() {
                                 ))
                             )
                         ))
-                    )
+                    ),
+                    groupedSeries.filter(c => c.key === "east-playin").map((column) => (
+                        React.createElement("div", { className: "bracket-playin", key: column.key, "data-side": "east" },
+                            React.createElement("div", { className: "column-label" }, column.label),
+                            column.items.map((series) => (
+                                React.createElement(MatchupCard, {
+                                    key: series.id,
+                                    series,
+                                    onWinsChange: setWins,
+                                    onOpenModal: setModalSeriesId
+                                })
+                            ))
+                        )
+                    ))
                 ),
                 React.createElement("section", { className: "mvp-hub" },
                     React.createElement("div", { className: "section-heading" },

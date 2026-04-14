@@ -26,6 +26,7 @@ body {
     color: var(--ink);
     background: var(--bg-layer);
     background-attachment: fixed;
+    overflow-x: hidden;
 }
 
 button,
@@ -205,16 +206,21 @@ select {
     padding: 10px 12px;
 }
 
+.bracket-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    overflow: hidden;
+}
+
 .bracket-shell {
     display: grid;
     grid-template-columns: repeat(9, 190px);
     gap: 40px;
     align-items: start;
-    overflow-x: auto;
     padding-bottom: 14px;
     zoom: 0.70;
-    width: max-content;
-    margin: 28px auto 0;
+    flex-shrink: 0;
 }
 
 .bracket-column {

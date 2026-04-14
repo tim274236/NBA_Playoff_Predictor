@@ -512,20 +512,22 @@ function App() {
                         }, "Reset Bracket")
                     )
                 ),
-                React.createElement("section", { className: "bracket-shell" },
-                    groupedSeries.map((column) => (
-                        React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
-                            React.createElement("div", { className: "column-label" }, column.label),
-                            column.items.map((series) => (
-                                React.createElement(MatchupCard, {
-                                    key: series.id,
-                                    series,
-                                    onWinsChange: setWins,
-                                    onOpenModal: setModalSeriesId
-                                })
-                            ))
-                        )
-                    ))
+                React.createElement("div", { className: "bracket-wrapper" },
+                    React.createElement("section", { className: "bracket-shell" },
+                        groupedSeries.map((column) => (
+                            React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
+                                React.createElement("div", { className: "column-label" }, column.label),
+                                column.items.map((series) => (
+                                    React.createElement(MatchupCard, {
+                                        key: series.id,
+                                        series,
+                                        onWinsChange: setWins,
+                                        onOpenModal: setModalSeriesId
+                                    })
+                                ))
+                            )
+                        ))
+                    )
                 ),
                 React.createElement("section", { className: "mvp-hub" },
                     React.createElement("div", { className: "section-heading" },

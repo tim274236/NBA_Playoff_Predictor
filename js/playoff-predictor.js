@@ -264,11 +264,10 @@ function getTeamBadge(teamName) {
     return id.toUpperCase();
 }
 
-function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWins }) {
+function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, showSelector = true }) {
     const teamId = getTeamId(teamName);
     const isTbd = !teamId;
-    const isPlayIn = maxWins === 1;
-    const winOptions = isPlayIn ? [0, 1] : [0, 1, 2, 3, 4];
+    const winOptions = [0, 1, 2, 3, 4];
 
     return (
         React.createElement("div", {
@@ -289,21 +288,16 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWi
                     React.createElement("div", { className: "team-meta" }, label)
                 )
             ),
-            React.createElement("label", { className: "wins-control" },
-                React.createElement("span", { className: "sr-only" }, `Result for ${teamName}`),
+            showSelector && React.createElement("label", { className: "wins-control" },
+                React.createElement("span", { className: "sr-only" }, `Wins for ${teamName}`),
                 React.createElement("select", {
                     value: wins,
                     onChange: (event) => onWinsChange(Number(event.target.value)),
                     disabled: isTbd
                 },
-                    isPlayIn
-                        ? [
-                            React.createElement("option", { key: 0, value: 0 }, "—"),
-                            React.createElement("option", { key: 1, value: 1 }, "Win")
-                          ]
-                        : winOptions.map((value) => (
-                            React.createElement("option", { key: value, value }, value)
-                          ))
+                    winOptions.map((value) => (
+                        React.createElement("option", { key: value, value }, value)
+                    ))
                 )
             )
         )
@@ -351,7 +345,7 @@ function MatchupCard({ series, onWinsChange, onOpenModal }) {
                     onWinsChange: (wins) => onWinsChange(series.id, "home", wins),
                     isWinner: homeWinner,
                     isLoser: awayWinner,
-                    maxWins
+                    showSelector: !isPlayIn
                 }),
                 React.createElement(TeamRow, {
                     label: "Away",
@@ -360,8 +354,31 @@ function MatchupCard({ series, onWinsChange, onOpenModal }) {
                     onWinsChange: (wins) => onWinsChange(series.id, "away", wins),
                     isWinner: awayWinner,
                     isLoser: homeWinner,
-                    maxWins
-                })
+                    showSelector: !isPlayIn
+                }),
+                isPlayIn && React.createElement("div", { className: "playin-winner-pick" },
+                    React.createElement("label", { className: "playin-winner-label" }, "Winner"),
+                    React.createElement("select", {
+                        value: series.winner === "home" ? "home" : series.winner === "away" ? "away" : "",
+                        onChange: (event) => {
+                            const val = event.target.value;
+                            if (val === "home") {
+                                onWinsChange(series.id, "home", 1);
+                                onWinsChange(series.id, "away", 0);
+                            } else if (val === "away") {
+                                onWinsChange(series.id, "away", 1);
+                                onWinsChange(series.id, "home", 0);
+                            } else {
+                                onWinsChange(series.id, "home", 0);
+                                onWinsChange(series.id, "away", 0);
+                            }
+                        }
+                    },
+                        React.createElement("option", { value: "" }, "— Pick winner"),
+                        React.createElement("option", { value: "home", disabled: series.home === "TBD" }, series.home),
+                        React.createElement("option", { value: "away", disabled: series.away === "TBD" }, series.away)
+                    )
+                )
             ),
             React.createElement("div", { className: "matchup-card__footer" },
                 playInBadge && React.createElement("span", { className: "playin-badge" }, playInBadge),

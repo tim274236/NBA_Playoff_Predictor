@@ -435,6 +435,35 @@ select {
     min-width: 62px;
 }
 
+.playin-winner-pick {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.42);
+}
+
+.playin-winner-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(22, 101, 52, 0.84);
+    white-space: nowrap;
+}
+
+.playin-winner-pick select {
+    flex: 1;
+    border-radius: 14px;
+    border: 1px solid rgba(143, 179, 164, 0.55);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--ink);
+    padding: 8px 10px;
+    font: inherit;
+}
+
 .matchup-card__footer {
     margin-top: 10px;
     display: flex;

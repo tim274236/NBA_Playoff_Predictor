@@ -17,5 +17,6 @@ export const ROSTERS = {
     cha: ["LaMelo Ball", "Brandon Miller", "Miles Bridges", "Mark Williams", "Tre Mann"],
     mia: ["Bam Adebayo", "Tyler Herro", "Kel'el Ware", "Andrew Wiggins", "Terry Rozier"],
     phi: ["Tyrese Maxey", "Joel Embiid", "Paul George", "Jared McCain", "Kelly Oubre Jr."],
-    orl: ["Paolo Banchero", "Franz Wagner", "Jalen Suggs", "Wendell Carter Jr.", "Jonathan Isaac"]
+    orl: ["Paolo Banchero", "Franz Wagner", "Jalen Suggs", "Wendell Carter Jr.", "Jonathan Isaac"],
+    phx: ["Devin Booker", "Kevin Durant", "Jusuf Nurkic", "Grayson Allen", "Tyus Jones"]
 };

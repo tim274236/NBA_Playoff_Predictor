@@ -1,6 +1,6 @@
 export const BRACKET = {
     west: {
-        playIn: ["LA Clippers", "Golden State Warriors", "TBD", "Portland Trail Blazers"],
+        playIn: ["LA Clippers", "Golden State Warriors", "Phoenix Suns", "Portland Trail Blazers"],
         r1: [
             { home: "Oklahoma City Thunder", homeId: "okc", away: "TBD", awayId: null },
             { home: "Los Angeles Lakers", homeId: "lal", away: "Houston Rockets", awayId: "hou" },

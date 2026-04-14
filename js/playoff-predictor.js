@@ -23,7 +23,8 @@ const TEAM_LOOKUP = {
     "Charlotte Hornets": "cha",
     "Miami Heat": "mia",
     "Philadelphia 76ers": "phi",
-    "Orlando Magic": "orl"
+    "Orlando Magic": "orl",
+    "Phoenix Suns": "phx"
 };
 
 const TEAM_ACCENTS = {
@@ -45,7 +46,8 @@ const TEAM_ACCENTS = {
     cha: "#06b6d4",
     mia: "#f43f5e",
     phi: "#3b82f6",
-    orl: "#8b5cf6"
+    orl: "#8b5cf6",
+    phx: "#e56020"
 };
 
 const WEST_PLAYIN = BRACKET.west.playIn;
@@ -277,6 +279,10 @@ function TeamRow({ label, teamName, wins, onWinsChange, isWinner, isLoser, maxWi
             ].filter(Boolean).join(" ")
         },
             React.createElement("div", { className: "team-main" },
+                React.createElement("div", {
+                    className: "team-logo",
+                    style: { backgroundColor: teamId ? TEAM_ACCENTS[teamId] : "#94a3b8" }
+                }, teamId ? teamId.toUpperCase() : "?"),
                 React.createElement("div", null,
                     React.createElement("div", { className: "team-name" }, teamName),
                     React.createElement("div", { className: "team-meta" }, label)
@@ -483,6 +489,21 @@ function App() {
                         }, "Reset Bracket")
                     )
                 ),
+                React.createElement("section", { className: "bracket-shell" },
+                    groupedSeries.map((column) => (
+                        React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
+                            React.createElement("div", { className: "column-label" }, column.label),
+                            column.items.map((series) => (
+                                React.createElement(MatchupCard, {
+                                    key: series.id,
+                                    series,
+                                    onWinsChange: setWins,
+                                    onOpenModal: setModalSeriesId
+                                })
+                            ))
+                        )
+                    ))
+                ),
                 React.createElement("section", { className: "mvp-hub" },
                     React.createElement("div", { className: "section-heading" },
                         React.createElement("p", { className: "eyebrow" }, "MVP Hub"),
@@ -511,21 +532,6 @@ function App() {
                             onChange: (value) => setMvpVote("finalsVote", value)
                         })
                     )
-                ),
-                React.createElement("section", { className: "bracket-shell" },
-                    groupedSeries.map((column) => (
-                        React.createElement("div", { className: "bracket-column", key: column.key, "data-col": column.key },
-                            React.createElement("div", { className: "column-label" }, column.label),
-                            column.items.map((series) => (
-                                React.createElement(MatchupCard, {
-                                    key: series.id,
-                                    series,
-                                    onWinsChange: setWins,
-                                    onOpenModal: setModalSeriesId
-                                })
-                            ))
-                        )
-                    ))
                 )
             ),
             React.createElement(StatModal, {

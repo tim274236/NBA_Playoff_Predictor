@@ -17,5 +17,6 @@ export const TEAM_STATS = {
     cha: { offRtg: 110.4, defRtg: 115.2, efgPct: 51.3, orebPct: 28.4 },
     mia: { offRtg: 112.1, defRtg: 113.7, efgPct: 52.8, orebPct: 27.1 },
     phi: { offRtg: 113.6, defRtg: 112.1, efgPct: 53.8, orebPct: 26.6 },
-    orl: { offRtg: 111.2, defRtg: 113.9, efgPct: 52.0, orebPct: 28.9 }
+    orl: { offRtg: 111.2, defRtg: 113.9, efgPct: 52.0, orebPct: 28.9 },
+    phx: { offRtg: 113.0, defRtg: 113.2, efgPct: 53.5, orebPct: 25.6 }
 };
